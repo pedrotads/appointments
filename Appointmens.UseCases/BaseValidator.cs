@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Appointments.UseCases
 {
-    public abstract class BaseValidator<T> where T: class
+    public abstract class BaseValidator<T>: IValidator<T> where T: class
     {
         internal IList<IValidation<T>> _validators;
 

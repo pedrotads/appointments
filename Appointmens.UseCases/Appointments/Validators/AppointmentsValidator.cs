@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Appointments.UseCases.Appointments.Validators
 {
-    public class AppointmentsValidator : BaseValidator<Appointment>, IValidator<Appointment>
+    public class AppointmentsValidator : BaseValidator<Appointment>
     {
         public AppointmentsValidator()
         {
