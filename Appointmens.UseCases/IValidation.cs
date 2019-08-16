@@ -6,6 +6,6 @@ namespace Appointments.UseCases
 {
     public interface IValidation<T> where T : class
     {
-        Tuple<string, string> Execute(T entity);
+        IList<Tuple<string, string>> Execute(T entity);
     }
 }

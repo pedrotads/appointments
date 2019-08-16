@@ -8,12 +8,13 @@ namespace Appointments.UseCases.Appointments.Validators
 {
     public class NameValidation : IValidation<Appointment>
     {
-        public Tuple<string, string> Execute(Appointment entity)
+        public IList<Tuple<string, string>> Execute(Appointment entity)
         {
-            Tuple<string, string> result = null;
+            IList<Tuple<string, string>> result = null;
             if (string.IsNullOrEmpty(entity.Name))
-            {
-                result = new Tuple<string, string>("AP01", "Name can't is null");
+            {                
+                result = new List<Tuple<string, string>>();
+                result.Add(new Tuple<string, string>("AP01", "Name can't is null or empty"));
             }
             return result;
         }
