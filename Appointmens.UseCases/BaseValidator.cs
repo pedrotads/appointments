@@ -10,7 +10,7 @@ namespace Appointments.UseCases
 
         public IList<Tuple<string, string>> Run(T entity)
         {
-            IList<Tuple<string, string>> result = new List<Tuple<string, string>>();
+            IList<Tuple<string, string>> result = null;
             if (_validators.Count != 0)
             {
                 foreach (IValidation<T> item in _validators)
@@ -18,11 +18,24 @@ namespace Appointments.UseCases
                     var validationResult = item.Execute(entity);
                     if (validationResult != null)
                     {
+                        if (result == null)
+                        {
+                            result = new List<Tuple<string, string>>();
+                        }
                         result.Add(validationResult);
                     }
                 }
             }
             return result;
+        }
+        public string GetErrors(IList<Tuple<string, string>> errors)
+        {
+            var ErrorMessage = new StringBuilder();
+            foreach (Tuple<string, string> item in errors)
+            {
+                ErrorMessage.AppendLine(item.Item1 + " - " + item.Item2);
+            }
+            return ErrorMessage.ToString();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 using Appointments.Domain;
 using Appointments.Domain.Exception;
 using Appointments.UseCases.Appointments.Repository;
+using Appointments.UseCases.Appointments.Validators;
 
 namespace Appointments.UseCases.Appointments
 {
@@ -14,15 +16,19 @@ namespace Appointments.UseCases.Appointments
         }
         public Appointment New(Appointment appointment)
         {
-            if (appointment.Start == null)
+            Appointment result = null;
+            var appointmentsValidator = new AppointmentsValidator();
+            var errors = appointmentsValidator.Run(appointment);
+            if (errors != null)
             {
-                throw new DomainException("Start date can't be null");
+                string ErrorMessage = appointmentsValidator.GetErrors(errors);
+                throw new DomainException(ErrorMessage.ToString());
             }
-            if (appointment.End == null)
+            else
             {
-                throw new DomainException("Start date can't be null");
+                _repository.NewAppointment(appointment);
             }
-            return null;
+            return result;
         }
     }
 }
