@@ -19,7 +19,6 @@ namespace Appointments.UseCases.Appointments.Validators
             if (entity.Start < DateTime.Now)
             {
                 result.Add(new Tuple<string, string>("AP03", "Start date can't be earlier than now"));
-
             }
             return result;
         }

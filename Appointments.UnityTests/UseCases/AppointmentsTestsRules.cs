@@ -1,16 +1,15 @@
 using Appointments.Domain;
 using Appointments.UseCases.Appointments.Validators;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Tests.UseCases
 {
     [TestFixture]
     public class AppointmentsTestsRules
     {
-
         NameValidation nameValidation = null;
         StartDateValidation startDateValidation = null;
-
         [SetUp]
         public void Setup()
         {
@@ -68,16 +67,12 @@ namespace Tests.UseCases
         {
             var appointment = new Appointment()
             {
-                Start = System.DateTime.MinValue
+                Start = System.DateTime.MinValue,
+                Name = "José da Silva"
             };
 
-            var errorStartDate = nameValidation.Execute(appointment);
-            Assert.IsNotNull(errorStartDate);
+            var errorStartDate = nameValidation.Execute(appointment);            
+            Assert.IsNull(errorStartDate);
         }
-
-
-
-
-
     }
 }
