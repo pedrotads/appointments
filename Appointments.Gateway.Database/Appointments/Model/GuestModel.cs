@@ -7,6 +7,5 @@ namespace Appointments.Gateway.Database.Appointments.Model
         public int Id { get; set; }
         public String Name { get; set; }
         public GuestStatusModel Status { get; set; }
-
     }
 }

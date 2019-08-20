@@ -6,7 +6,7 @@ using System.Linq;
 namespace Tests.UseCases
 {
     [TestFixture]
-    public class AppointmentsTestsRules
+    public class AppointmentsUseCaseTests
     {
         NameValidation nameValidation = null;
         StartDateValidation startDateValidation = null;
