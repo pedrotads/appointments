@@ -26,7 +26,7 @@ namespace Appointments.UseCases.Appointments
             }
             else
             {
-                _repository.NewAppointment(appointment);
+                result = _repository.NewAppointment(appointment);
             }
             return result;
         }

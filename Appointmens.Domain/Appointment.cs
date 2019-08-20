@@ -7,7 +7,7 @@ namespace Appointments.Domain
     {
         public int Id { get; set; }
         public DateTime Start { get; set; }
-        public DateTimeOffset End { get; set; }
+        public TimeSpan End { get; set; }
         public String Name { get; set; }
         public String Place { get; set; }
         public String Details { get; set; }
