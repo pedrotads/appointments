@@ -1,10 +1,9 @@
 using Appointments.Domain;
-using Appointments.Gateway.Database.Appointments.Repository;
+using Appointments.UnityTests.Repository.Mocks;
 using Appointments.UseCases.Appointments;
 using Appointments.UseCases.Appointments.Validators;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Tests.UseCases
 {
@@ -99,12 +98,13 @@ namespace Tests.UseCases
              );
             appointmentNew.Guests = guests;
 
-            var appointmentRepository = new AppointmentRepository();
-            var newAppointment = new NewAppointment(appointmentRepository);
+            var appointmentRepositoryMock = new AppointmentRepositoryMock();
+            var newAppointment = new NewAppointment(appointmentRepositoryMock);
             var appointmentInserted = newAppointment.New(appointmentNew);
 
             Assert.NotNull(appointmentInserted);
             Assert.NotNull(appointmentInserted.Id);
+            Assert.Equals(appointmentInserted.Id, 1);
         }
     }
 }
