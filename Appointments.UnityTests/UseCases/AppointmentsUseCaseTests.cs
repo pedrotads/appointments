@@ -10,18 +10,15 @@ namespace Tests.UseCases
     [TestFixture]
     public class AppointmentsUseCaseTests
     {
-        NameIsNullValidation nameValidation = null;
-        StartDateValidationIsMinValue startDateValidation = null;
         [SetUp]
         public void Setup()
-        {
-            nameValidation = new NameIsNullValidation();
-            startDateValidation = new StartDateValidationIsMinValue();
+        {            
         }
 
         [Test]
         public void IsTheNameFilledIn()
         {
+            var nameValidation = new NameIsNullValidation();
             var appointment = new Appointment()
             {
                 Name = "Reunião de Validação"
@@ -34,9 +31,10 @@ namespace Tests.UseCases
         [Test]
         public void IsTheNameEmptyOrNull()
         {
+            var nameValidation = new NameIsNullValidation();
             var appointment = new Appointment()
             {
-                Name = ""
+                Name = string.Empty
             };
 
             var errorName = nameValidation.Execute(appointment);
@@ -46,9 +44,10 @@ namespace Tests.UseCases
         [Test]
         public void IsTheStartDateFilled()
         {
+            var startDateValidation = new StartDateValidationIsMinValue();
             var appointment = new Appointment()
             {
-                Start = new System.DateTime().Date,
+                Start = System.DateTime.Now,
             };
 
             var errorStartDate = startDateValidation.Execute(appointment);
@@ -59,20 +58,45 @@ namespace Tests.UseCases
         public void IsTheStartDateNull()
         {
             var appointment = new Appointment();
-
+            var startDateValidation = new StartDateValidationIsMinValue();
             var errorStartDate = startDateValidation.Execute(appointment);
             Assert.IsNotNull(errorStartDate);
         }
 
         [Test]
+        public void IsStartDateInThePast()
+        {
+            var startDateIsInThePast = new StartDateIsInThePastValidation();
+            var appointment = new Appointment()
+            {
+                Start = System.DateTime.Now.AddHours(-1)
+            };
+            var errorStartDate = startDateIsInThePast.Execute(appointment);
+            Assert.IsNotNull(errorStartDate);
+        }
+
+        [Test]
+        public void IsStartDateNotInThePast()
+        {
+            var startDateIsInThePast = new StartDateIsInThePastValidation();
+            var appointment = new Appointment()
+            {
+                Start = System.DateTime.Now.AddHours(1)
+            };
+            var errorStartDate = startDateIsInThePast.Execute(appointment);
+            Assert.IsNull(errorStartDate);
+        }
+
+
+        [Test]
         public void IsTheStartDateAndNameFilled()
         {
+            var nameValidation = new NameIsNullValidation();
             var appointment = new Appointment()
             {
                 Start = System.DateTime.MinValue,
                 Name = "Reunião de Validação"
             };
-
             var errorStartDate = nameValidation.Execute(appointment);
             Assert.IsNull(errorStartDate);
         }
@@ -82,7 +106,7 @@ namespace Tests.UseCases
         {
             var appointmentNew = new Appointment()
             {
-                Start = System.DateTime.Now + new System.TimeSpan(1, 0, 0),
+                Start = System.DateTime.Now.AddHours(1),
                 Name = "Papo Teste",
                 Place = "Rua das Flores, 15",
                 End = new System.TimeSpan(1, 0, 0),
