@@ -6,16 +6,16 @@ using System.Text;
 
 namespace Appointments.UseCases.Appointments.Validators
 {
-    public class NameIsNullValidation : IValidation<Appointment>
+    public class StartDateIsInThePastValidation : IValidation<Appointment>
     {
         public IList<Tuple<string, string>> Execute(Appointment entity)
         {
-            IList<Tuple<string, string>> result = null;
-            if (string.IsNullOrEmpty(entity.Name))
+            List<Tuple<string, string>> result = null;
+            if (entity.Start < DateTime.Now)
             {
-                result = new List<Tuple<string, string>>()
+                result = new List<Tuple<string, string>>
                 {
-                    new Tuple<string, string>("AP01", "Name can't is null or empty")
+                    new Tuple<string, string>("AP03", "Start date can't be earlier than now")
                 };
             }
             return result;

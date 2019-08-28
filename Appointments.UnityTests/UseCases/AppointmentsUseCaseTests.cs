@@ -10,13 +10,13 @@ namespace Tests.UseCases
     [TestFixture]
     public class AppointmentsUseCaseTests
     {
-        NameValidation nameValidation = null;
-        StartDateValidation startDateValidation = null;
+        NameIsNullValidation nameValidation = null;
+        StartDateValidationIsMinValue startDateValidation = null;
         [SetUp]
         public void Setup()
         {
-            nameValidation = new NameValidation();
-            startDateValidation = new StartDateValidation();
+            nameValidation = new NameIsNullValidation();
+            startDateValidation = new StartDateValidationIsMinValue();
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Tests.UseCases
                 Name = "Reunião de Validação"
             };
 
-            var errorStartDate = nameValidation.Execute(appointment);            
+            var errorStartDate = nameValidation.Execute(appointment);
             Assert.IsNull(errorStartDate);
         }
 
@@ -87,16 +87,15 @@ namespace Tests.UseCases
                 Place = "Rua das Flores, 15",
                 End = new System.TimeSpan(1, 0, 0),
                 Details = "Reunião de Testes",
-                Guests = null
-            };
-            var guests = new List<Guest>();
-            guests.Add(new Guest()
+                Guests = new List<Guest>()
                 {
-                    Name = "Pedro Teste",
-                    Status = GuestStatus.Waiting
+                    new Guest()
+                    {
+                        Name = "Pedro Teste",
+                        Status = GuestStatus.Waiting
+                    }
                 }
-             );
-            appointmentNew.Guests = guests;
+            };
 
             var appointmentRepositoryMock = new AppointmentRepositoryMock();
             var newAppointment = new NewAppointment(appointmentRepositoryMock);
@@ -104,7 +103,7 @@ namespace Tests.UseCases
 
             Assert.NotNull(appointmentInserted);
             Assert.NotNull(appointmentInserted.Id);
-            Assert.Equals(appointmentInserted.Id, 1);
+            Assert.AreEqual(appointmentInserted.Id, 1);
         }
     }
 }

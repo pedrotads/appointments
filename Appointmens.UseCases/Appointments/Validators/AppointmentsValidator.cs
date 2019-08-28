@@ -9,14 +9,12 @@ namespace Appointments.UseCases.Appointments.Validators
     {
         public AppointmentsValidator()
         {
-            _validators = new List<IValidation<Appointment>>();
-            _validators.Add(new NameValidation());
-            _validators.Add(new StartDateValidation());
-        }
-        
-        public new IList<Tuple<string, string>> Run(Appointment entity)
-        {
-            return base.Run(entity);
+            _validators = new List<IValidation<Appointment>>
+            {
+                new NameIsNullValidation(),
+                new StartDateValidationIsMinValue(),
+                new StartDateIsInThePastValidation()
+            };
         }
     }
 }

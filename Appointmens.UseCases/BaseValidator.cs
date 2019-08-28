@@ -33,7 +33,7 @@ namespace Appointments.UseCases
             var ErrorMessage = new StringBuilder();
             foreach (Tuple<string, string> item in errors)
             {
-                ErrorMessage.AppendLine(item.Item1 + " - " + item.Item2);
+                ErrorMessage.AppendLine($"{item.Item1} - {item.Item2}");
             }
             return ErrorMessage.ToString();
         }
