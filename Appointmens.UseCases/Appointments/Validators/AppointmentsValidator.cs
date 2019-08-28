@@ -9,7 +9,7 @@ namespace Appointments.UseCases.Appointments.Validators
     {
         public AppointmentsValidator()
         {
-            _validators = new List<IValidation<Appointment>>
+            validators = new List<IValidation<Appointment>>
             {
                 new NameIsNullValidation(),
                 new StartDateValidationIsMinValue(),

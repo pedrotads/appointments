@@ -6,14 +6,14 @@ namespace Appointments.UseCases
 {
     public abstract class BaseValidator<T>: IValidator<T> where T: class
     {
-        internal IList<IValidation<T>> _validators;
+        internal IList<IValidation<T>> validators;
 
         public IList<Tuple<string, string>> Run(T entity)
         {
             List<Tuple<string, string>> result = null;
-            if (_validators.Count != 0)
+            if (validators.Count != 0)
             {
-                foreach (IValidation<T> item in _validators)
+                foreach (IValidation<T> item in validators)
                 {
                     var validationResult = item.Execute(entity);
                     if (validationResult != null)
@@ -30,12 +30,12 @@ namespace Appointments.UseCases
         }
         public string GetErrors(IList<Tuple<string, string>> errors)
         {
-            var ErrorMessage = new StringBuilder();
+            var errorMessage = new StringBuilder();
             foreach (Tuple<string, string> item in errors)
             {
-                ErrorMessage.AppendLine($"{item.Item1} - {item.Item2}");
+                errorMessage.AppendLine($"{item.Item1} - {item.Item2}");
             }
-            return ErrorMessage.ToString();
+            return errorMessage.ToString();
         }
     }
 }

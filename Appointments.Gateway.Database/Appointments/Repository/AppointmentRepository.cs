@@ -11,9 +11,9 @@ namespace Appointments.Gateway.Database.Appointments.Repository
     {
         public Appointment NewAppointment(Appointment appointment)
         {
-            var appointmentModel = appointment.toAppointmentModel();
+            var appointmentModel = appointment.ToAppointmentModel();
             appointmentModel.Id = 1;
-            return appointmentModel.fromAppointmentModel();
+            return appointmentModel.FromAppointmentModel();
         }
     }
 }

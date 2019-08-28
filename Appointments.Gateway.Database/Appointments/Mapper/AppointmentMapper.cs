@@ -9,7 +9,7 @@ namespace Appointments.Gateway.Database.Appointments.Mapper
 {
     public static class AppointmentMapper
     {
-        public static AppointmentModel toAppointmentModel(this Appointment appointment)
+        public static AppointmentModel ToAppointmentModel(this Appointment appointment)
         {
             return new AppointmentModel()
             {
@@ -29,7 +29,7 @@ namespace Appointments.Gateway.Database.Appointments.Mapper
             };
         }
 
-        public static Appointment fromAppointmentModel(this AppointmentModel appointmentModel)
+        public static Appointment FromAppointmentModel(this AppointmentModel appointmentModel)
         {
             return new Appointment()
             {
